@@ -13,7 +13,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\Entity(repositoryClass=ModuleRepository::class)
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(
- *     name="module",
+ *     name="`module`",
  *     indexes={
  *         @ORM\Index(name="module__parent_id__ind", columns={"parent_id"}),
  *         @ORM\Index(name="module__tree_root__ind", columns={"tree_root"})

@@ -44,7 +44,7 @@ class StudentSkill
     private Student $student;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
     private int $point;
 

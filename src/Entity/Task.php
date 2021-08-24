@@ -10,12 +10,12 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=TaskRepository::class)
- * @ORM\Entity
  * @ORM\Table(
  *     name="task",
  *     indexes={
  *       @ORM\Index(name="task__module_id__ind", columns={"module_id"})
- *     }
+ *     },
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="task__name_uniq", columns={"name"})}
  * )
  */
 class Task

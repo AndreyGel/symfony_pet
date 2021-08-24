@@ -7,6 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=SkillTaskRepository::class)
+ * @ORM\Table(
+ *     name="skill_task",
+ *     indexes={
+ *         @ORM\Index(name="skill_task__skill_id__ind", columns={"skill_id"}),
+ *         @ORM\Index(name="skill_task__task_id__ind", columns={"task_id"})
+ *     }
+ * )
  */
 class SkillTask
 {
