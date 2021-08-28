@@ -10,8 +10,10 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=StudentRepository::class)
- * @ORM\Entity
- * @ORM\Table(name="student")
+ * @ORM\Table(
+ *     name="student",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="student__email_uniq", columns={"email"})}
+ * )
  */
 class Student
 {
@@ -25,12 +27,12 @@ class Student
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private string $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private string $email;
 
