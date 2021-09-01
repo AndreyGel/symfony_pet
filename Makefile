@@ -16,12 +16,14 @@ perm:
 	sudo chmod -R ug+rwx storage bootstrap/cache
 	sudo chmod -R 777 resources/lang
 test:
-	docker-compose exec php-fpm php artisan test
+	docker-compose exec app php artisan test
 sym:
-	docker-compose exec php-fpm /root/.symfony/bin/symfony $(c)
+	docker-compose exec app /root/.symfony/bin/symfony $(c)
 migrate:
-	docker-compose exec php-fpm php artisan migrate
+	docker-compose exec app php artisan migrate
 exec:
-	docker-compose exec php-fpm bash
+	docker-compose exec app bash
 console:
-	docker-compose exec php-fpm php bin/console $(c)
+	docker-compose exec app php bin/console $(c)
+migration:
+	docker-compose exec app php bin/console doctrine:migration:$(c)

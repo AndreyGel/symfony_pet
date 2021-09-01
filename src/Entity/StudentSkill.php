@@ -43,6 +43,17 @@ class StudentSkill
      */
     private Student $student;
 
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'skill' => $this->skill->toArray(),
+            'student' => $this->student->toArray(),
+            'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
+            'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
+        ];
+    }
+
     /**
      * @ORM\Column(type="integer")
      */

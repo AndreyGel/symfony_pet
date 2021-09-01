@@ -52,6 +52,19 @@ class Student
         $this->skills = new ArrayCollection();
     }
 
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'tasks' => array_map(static fn(Task $task) => $task->toArray(), $this->tasks->toArray()),
+            'skills' => array_map(static fn(Skill $skill) => $skill->toArray(), $this->skills->toArray()),
+            'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
+            'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
+        ];
+    }
+
     public function addTask(CompletedTask $task): void
     {
         if (!$this->tasks->contains($task)) {

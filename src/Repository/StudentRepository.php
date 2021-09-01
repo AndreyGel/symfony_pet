@@ -23,7 +23,7 @@ class StudentRepository extends ServiceEntityRepository
     /**
      * @return Student[]
      */
-    public function findAllWithPagination(int $offset = 0, int $limit = 10): array
+    public function findAllWithPagination(int $offset, int $limit): array
     {
         return $this->createQueryBuilder('s')
             ->orderBy('s.id', 'ASC')

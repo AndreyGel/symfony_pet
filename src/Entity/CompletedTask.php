@@ -48,6 +48,18 @@ class CompletedTask
      */
     private int $score;
 
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'skill' => $this->student->toArray(),
+            'task' => $this->task->toArray(),
+            'score' => $this->score,
+            'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
+            'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
+        ];
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -82,8 +94,10 @@ class CompletedTask
         return $this->score;
     }
 
-    public function setScore(int $score): void
+    public function setScore(int $score): self
     {
         $this->score = $score;
+
+        return $this;
     }
 }
