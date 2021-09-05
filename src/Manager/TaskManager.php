@@ -72,7 +72,7 @@ class TaskManager
 
         return [
             'items' => $tasks,
-            'count' => $count
+            'pages' => ceil($count/$limit)
         ];
     }
 }

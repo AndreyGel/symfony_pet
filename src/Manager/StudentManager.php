@@ -78,7 +78,7 @@ class StudentManager
 
         return [
             'items' => $students,
-            'count' => $count
+            'pages' => ceil($count/$limit)
         ];
     }
 }

@@ -2,17 +2,13 @@
 
 namespace App\Controller\Api\CompleteTask\v1;
 
+use App\Controller\Api\AbstractRestController;
 use App\Service\CompletedTaskService;
-use App\Service\TaskBuilderService;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @Rest\Route(path="/api/v1/complete-task")
- */
-class Controller extends AbstractFOSRestController
+class Controller extends AbstractRestController
 {
     private CompletedTaskService $service;
 
@@ -22,7 +18,7 @@ class Controller extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Post ("")
+     * @Rest\Post ("/api/v1/complete-task")
      * @Rest\RequestParam(name="studentId", nullable=false, requirements="\d+")
      * @Rest\RequestParam(name="taskId", nullable=false, requirements="\d+")
      * @Rest\RequestParam(name="score", nullable=false, requirements="\d+")

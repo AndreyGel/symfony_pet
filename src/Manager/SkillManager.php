@@ -78,7 +78,7 @@ class SkillManager
 
         return [
             'items' => $skills,
-            'count' => $count
+            'pages' => ceil($count/$limit)
         ];
     }
 }
