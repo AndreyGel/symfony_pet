@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SkillTaskRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=SkillTaskRepository::class)
@@ -17,6 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SkillTask
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Column(name="id", type="bigint", unique=true)
      * @ORM\Id
@@ -44,6 +47,18 @@ class SkillTask
      * @ORM\Column(type="integer")
      */
     private int $point;
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'skill' => $this->skill->toArray(),
+            'task' => $this->task->toArray(),
+            'point' => $this->point,
+            'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
+            'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
+        ];
+    }
 
     public function getId(): ?int
     {

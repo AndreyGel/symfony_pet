@@ -10,7 +10,10 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=SkillRepository::class)
- * @ORM\Table(name="skill")
+ * @ORM\Table(
+ *     name="skill",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="skill__name_uniq", columns={"name"})}
+ * )
  */
 class Skill
 {
@@ -24,7 +27,7 @@ class Skill
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,  unique=true)
      */
     private string $name;
 
@@ -38,7 +41,18 @@ class Skill
         $this->students = new ArrayCollection();
     }
 
-    public function addStudent(StudentSkill $student)
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'students' => array_map(static fn(Student $student) => $student->toArray(), $this->students->toArray()),
+            'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
+            'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
+        ];
+    }
+
+    public function addStudent(StudentSkill $student): void
     {
         if (!$this->students->contains($student)) {
             $this->students->add($student);

@@ -53,7 +53,7 @@ class Module
      * @ORM\ManyToOne(targetEntity="Module", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", onDelete="CASCADE")
      */
-    private Module $parent;
+    private ?Module $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Module", mappedBy="parent")
@@ -66,7 +66,7 @@ class Module
      * @ORM\ManyToOne(targetEntity="Module")
      * @ORM\JoinColumn(name="tree_root",onDelete="CASCADE")
      */
-    private Module $root;
+    private ?Module $root;
 
     /**
      * @Gedmo\TreeLevel
@@ -83,6 +83,21 @@ class Module
     {
         $this->tasks = new ArrayCollection();
         $this->children = new ArrayCollection();
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'left' => $this->left,
+            'right' => $this->right,
+            'parent' => $this->parent ? $this->parent->toArray() : null,
+            'children' => array_map(static fn(Module $module) => $module->toArray(), $this->children->toArray()),
+            'level' => $this->level,
+            'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
+            'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
+        ];
     }
 
     public function addTask(Task $task)
@@ -121,12 +136,12 @@ class Module
         $this->parent = $parent;
     }
 
-    public function getParent(): Module
+    public function getParent(): ?Module
     {
         return $this->parent;
     }
 
-    public function getRoot(): Module
+    public function getRoot(): ?Module
     {
         return $this->root;
     }

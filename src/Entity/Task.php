@@ -45,14 +45,28 @@ class Task
      *   @ORM\JoinColumn(name="module_id", onDelete="SET NULL")
      * })
      */
-    private Module $module;
+    private ?Module $module;
 
     public function __construct()
     {
         $this->students = new ArrayCollection();
     }
 
-    public function addStudent(CompletedTask $student)
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'students' => array_map(
+                static fn(Student $student) => $student->toArray(), $this->students->toArray()
+            ),
+            'module' => $this->module ? $this->module->toArray() : null,
+            'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
+            'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
+        ];
+    }
+
+    public function addStudent(CompletedTask $student): void
     {
         if (!$this->students->contains($student)) {
             $this->students->add($student);
